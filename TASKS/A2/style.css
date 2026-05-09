@@ -49,19 +49,7 @@ body {
   font-size: 18px;
 }
 
-/* FIXED OVERLAP */
 
-.classification-text {
-  position: absolute;
-  left: -40px;
-  top: 50%;
-  transform: rotate(-90deg) translateY(-50%);
-  transform-origin: left top;
-  font-size: 65px;
-  color: #0c2a22;
-  font-family: serif;
-  letter-spacing: 2px;
-}
 
 .info {
   margin-top: 170px;
