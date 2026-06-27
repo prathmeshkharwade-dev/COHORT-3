@@ -130,7 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = '1';
 });
 
-/* ============ MOBILE MENU TOGGLE (Optional) ============ */
-// You can add mobile menu functionality here if needed
 
 console.log('LOMBOK Website loaded successfully!');
