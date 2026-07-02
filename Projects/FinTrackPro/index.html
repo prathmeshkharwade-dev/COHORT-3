@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack Pro - Personal Finance Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to our CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVBAR - Fixed at top -->
+    <nav class="navbar">
+        <!-- Logo on the left -->
+        <div class="navbar-logo">
+            <h2>💰 FinTrack Pro</h2>
+        </div>
+
+        <!-- Navigation links in the middle -->
+        <div class="navbar-links">
+            <a href="#" class="nav-link active" onclick="showPage('dashboard'); return false;">Dashboard</a>
+            <a href="#" class="nav-link" onclick="showPage('settings'); return false;">Settings</a>
+        </div>
+
+        <!-- Buttons on the right -->
+        <div class="navbar-buttons">
+            <button class="btn btn-primary" onclick="openAddTransactionModal()">+ Add Transaction</button>
+            <button class="btn btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page active">
+                <h1>Dashboard</h1>
+                <p>Dashboard content will go here in the next steps</p>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="page">
+                <h1>Settings</h1>
+                <p>Settings content will go here in the next steps</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Chart.js Library from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Link to our JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
