@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-base dark:bg-base-dark text-ink dark:text-ink-dark font-sans antialiased selection:bg-accent/20;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight text-ink dark:text-ink-dark;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+}
