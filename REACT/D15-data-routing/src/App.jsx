@@ -1,9 +1,10 @@
 import React from 'react'
+import AppRoputes from './routes/AppRoutes'
 
 const App = () => {
   return (
     <div>
-      <h1>data roughting</h1>
+      <AppRoputes />
     </div>
   )
 }
