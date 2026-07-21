@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
+import { Auth } from "../context/AuthContext";
 
 
 const Register = () => {
+
+
+        const { registeredUsers, setRegisteredUsers} = useContext(Auth);
+
     let navigate = useNavigate();
 
     let { register, handleSubmit, reset, formState: { errors },
     } = useForm();
 
         let formSubmit =(data) => {
-            console.log(data);
+
+            let arr = [...registeredUsers, data]
+            setRegisteredUsers(arr);
+            alert("User registerd successfully");
+            localStorage.setItem("registerUsers", JSON.stringify(arr));
 
             reset()
         }
