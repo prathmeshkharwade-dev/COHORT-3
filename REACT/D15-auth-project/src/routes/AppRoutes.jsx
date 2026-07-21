@@ -4,6 +4,7 @@ import AuthLayout from '../layouts/AuthLayout';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import MainLayout from '../layouts/MainLayout';
+import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutes = () => {
 
@@ -24,7 +25,13 @@ const AppRoutes = () => {
         },
         {
             path:"/main",
-            element:<MainLayout />,
+            element:<ProtectedRoute />,
+            children: [
+                {
+                    path: "",
+                    element: <MainLayout />,
+                },
+            ],
         },
     ])
 

@@ -7,7 +7,7 @@ import { Auth } from "../context/AuthContext";
 const Register = () => {
 
 
-        const { registeredUsers, setRegisteredUsers} = useContext(Auth);
+        const { registeredUsers, setRegisteredUsers, setLoggedInUser} = useContext(Auth);
 
     let navigate = useNavigate();
 
@@ -19,7 +19,10 @@ const Register = () => {
             let arr = [...registeredUsers, data]
             setRegisteredUsers(arr);
             alert("User registerd successfully");
+            setLoggedInUser(data);
+            localStorage.setItem('loggedinUser', JSON.stringify(data));
             localStorage.setItem("registerUsers", JSON.stringify(arr));
+            navigate("/main");
 
             reset()
         }
