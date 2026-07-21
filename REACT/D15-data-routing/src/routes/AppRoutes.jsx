@@ -8,17 +8,20 @@ const AppRoutes = () => {
 
   let router = createBrowserRouter([
     {
-      path:"/",
-      element:<Home />,
+      path: "/",
+      element: <Home />,
+      children: [
+        {
+          path: "about",
+          element: <About />,
+        },
+        {
+          path: "services",
+          element: <Services />,
+        },
+      ]
     },
-    {
-        path:"/about",
-        element:<About />,
-    },
-    {
-        path:"/services",
-        element:<Services />,
-    },
+
   ])
 
 

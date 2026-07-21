@@ -1,9 +1,13 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import { Outlet } from 'react-router'
 
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+        <Navbar />
+        <h1>Home</h1>
+        <Outlet />
     </div>
   )
 }
