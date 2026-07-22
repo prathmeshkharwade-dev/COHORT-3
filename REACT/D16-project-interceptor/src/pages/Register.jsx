@@ -6,6 +6,8 @@ import { Auth } from "../context/AuthContext";
 
 const Register = () => {
 
+    console.log("Register rendring .....")
+
 
         const { registeredUsers, setRegisteredUsers, setLoggedInUser} = useContext(Auth);
 

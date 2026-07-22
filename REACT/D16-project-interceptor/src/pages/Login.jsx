@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 const Login = () => {
 
+    console.log("login rendring....")
+
     const { registeredUsers,  setLoggedInUser } = useContext(Auth);
 
     let navigate = useNavigate();
