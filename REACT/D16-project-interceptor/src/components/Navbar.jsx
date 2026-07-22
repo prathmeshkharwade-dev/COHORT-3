@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Navigate, NavLink } from 'react-router'
 import { Auth } from '../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
 
@@ -42,6 +43,7 @@ const Navbar = () => {
             <button 
              onClick={() => {
                 localStorage.removeItem ("loggedinUser");
+                toast.warn("user logged out");
                 setLoggedInUser(null);
              }}
              className="rounded-lg bg-red-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-red-600 hover:shadow-lg active:scale-95 cursor-pointer">

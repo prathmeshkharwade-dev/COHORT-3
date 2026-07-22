@@ -1,34 +1,12 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
-import { Auth } from "../context/AuthContext";
+import React from "react";
+import { useAuth } from "../hooks/useAuth";
 
 
 const Register = () => {
 
-    console.log("Register rendring .....")
-
-
-        const { registeredUsers, setRegisteredUsers, setLoggedInUser} = useContext(Auth);
-
-    let navigate = useNavigate();
-
-    let { register, handleSubmit, reset, formState: { errors },
-    } = useForm();
-
-        let formSubmit =(data) => {
-
-            let arr = [...registeredUsers, data]
-            setRegisteredUsers(arr);
-            alert("User registerd successfully");
-            setLoggedInUser(data);
-            localStorage.setItem('loggedinUser', JSON.stringify(data));
-            localStorage.setItem("registeredUsers", JSON.stringify(arr));
-            navigate("/main");
-
-            reset()
-        }
-
+     let {register,  registerFormSubmit , handleSubmit, navigate, errors } = useAuth();
+    
+  
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
@@ -43,7 +21,7 @@ const Register = () => {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit(formSubmit)} className="space-y-5">
+                <form onSubmit={handleSubmit(registerFormSubmit)} className="space-y-5">
                     {/* Name */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -84,8 +62,8 @@ const Register = () => {
                         <input
                             {...register("password", {
                                 required: "password is required",
-                                minLength:{
-                                    value:6,
+                                minLength: {
+                                    value: 6,
                                     message: "Minimum 6 character is required",
                                 }
                             })}
@@ -110,7 +88,7 @@ const Register = () => {
                     <p className="text-gray-600 text-sm">
                         Already have an account?{" "}
                         <button
-                        
+
                             onClick={() => navigate("/")}
                             to="/login"
                             className="text-blue-600 font-semibold hover:underline"
