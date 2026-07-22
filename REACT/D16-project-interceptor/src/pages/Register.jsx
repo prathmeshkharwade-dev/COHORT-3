@@ -23,7 +23,7 @@ const Register = () => {
             alert("User registerd successfully");
             setLoggedInUser(data);
             localStorage.setItem('loggedinUser', JSON.stringify(data));
-            localStorage.setItem("registerUsers", JSON.stringify(arr));
+            localStorage.setItem("registeredUsers", JSON.stringify(arr));
             navigate("/main");
 
             reset()
