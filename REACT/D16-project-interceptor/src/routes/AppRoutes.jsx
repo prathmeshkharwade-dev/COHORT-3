@@ -6,6 +6,9 @@ import Register from '../pages/Register';
 import MainLayout from '../layouts/MainLayout';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
+import Users from '../pages/Users';
+import Products from '../pages/Products';
+import Home from '../pages/Home';
 
 const AppRoutes = () => {
 
@@ -33,7 +36,7 @@ const AppRoutes = () => {
 
 
 
-        
+
         {
             path: "/main",
             element: <ProtectedRoute />,
@@ -41,6 +44,20 @@ const AppRoutes = () => {
                 {
                     path: "",
                     element: <MainLayout />,
+                    children: [
+                        {
+                            path:"",
+                            element:<Home />,
+                        },
+                         {
+                            path:"users",
+                            element:<Users />,
+                        },
+                         {
+                            path:"products",
+                            element:<Products />,
+                        },
+                    ],
                 },
             ],
         },

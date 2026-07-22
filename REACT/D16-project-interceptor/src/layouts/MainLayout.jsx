@@ -1,10 +1,17 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import { Outlet } from 'react-router'
 
 
 const MainLayout = () => {
   return (
-    <div>
-      <h1>MAIN LAY</h1>
+    <div className="h-screen p-2 flex grid grid-cols-[1fr_7fr] " >
+      <Navbar />
+
+      <div className="h-full p-2" >
+          <Outlet />
+      </div>
+      
     </div>
   )
 }
