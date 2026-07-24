@@ -16,8 +16,8 @@ const App = () => {
       <h2>Name is {users.name}</h2>
       <button onClick={() => setUsers({...users, name: "Ranjeet"})}>Change Name  </button>
       <button onClick={() => setCount(count + 1)}>Increment</button>
-      <Home />
-      <About />
+      <Home  users={users}/>
+      <About users={users}/>
     </div>
   );
 };

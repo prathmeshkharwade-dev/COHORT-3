@@ -1,6 +1,6 @@
 import React from 'react'
 
-const About = () => {
+const About = ({ users }) => {
 
     console.log("About rendring.....");
 
@@ -11,4 +11,7 @@ const About = () => {
   )
 }
 
-export default React.memo(About);
+export default React.memo(About, (prevProps, nextProps) => {
+    return prevProps.users.id === nextProps.users.id;
+
+});
