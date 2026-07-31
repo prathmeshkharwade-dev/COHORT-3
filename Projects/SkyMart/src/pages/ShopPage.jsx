@@ -2,29 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCart";
 import ProductCardSkeleton from "../components/ProductCartSkeleton";
+import { getProductDataApi } from "../api/productsApi";
 
-const ShopPage = () => {
+const ShopPage =  () => {
 
     const [productsData, setProductsData] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
-    let getProductData = async () => {
-      try {       
-        let res = await axios.get("https://dummyjson.com/products");
-        console.log(res.data.products);
-        setProductsData(res.data.products);
+  const getData = async () => {
+    let data = await getProductDataApi();
+    setProductsData(data);
+    setIsLoading(false);
+  };
 
-      } catch (error) {
-        console.log("error in product api", error);
-      } finally{
-        setIsLoading(false);
-      }
-    };
-
-    useEffect(() => {
-      getProductData();
-    }, []);
+  useEffect(() => {
+    getData();
+  });
   
 return (
    <div className="min-h-screen bg-black p-8">   
