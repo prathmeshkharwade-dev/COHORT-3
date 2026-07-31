@@ -1,14 +1,14 @@
 import React from "react";
 import ProductCard from "../components/ProductCart";
 import ProductCardSkeleton from "../components/ProductCartSkeleton";
-import { getProductDataApi } from "../api/productsApi";
-import { useQuery } from "@tanstack/react-query";
+import { useProductApi } from "../hooks/productsHooks";
+
 
 const ShopPage =  () => {
-   let { data, isPending} = useQuery({
-     queryKey:["prosucts"],
-     queryFn: getProductDataApi,
-  });
+  let { isPending, data, error} = useProductApi();
+  
+  
+  if(error) return <h1>{error.message}</h1>;
   
 return (
    <div className="min-h-screen bg-black p-8">   
