@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
-import useProduct from "../hooks/productHooks";
+import { useProduct } from "../hooks/productHooks";
 import Filters from "../components/Filters";
 
 
