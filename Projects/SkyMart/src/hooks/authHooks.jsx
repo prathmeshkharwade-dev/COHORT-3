@@ -14,7 +14,7 @@ export const useAuth = () => {
 
   let {
     register,
-    handleSubmit,
+    handleSubmit, 
     reset,
     formState: { errors },
   } = useForm();
@@ -26,6 +26,7 @@ export const useAuth = () => {
     localStorage.setItem("registeredUsers", JSON.stringify(arr));
     toast.success("user registered..");
   };
+
   const loginForm = (data) => {
     let user = registeredUsers.find((val) => {
       return val.email === data.email && val.password === data.password;
@@ -40,7 +41,6 @@ export const useAuth = () => {
     localStorage.setItem("loggedInUser", JSON.stringify(user));
     toast.success("user logged in");
     reset();
-    navigate("/main");
   };
 
   return {
