@@ -1,6 +1,10 @@
 import React from "react";
+import { useAuth } from "../../hooks/useAuthHook";
+
 
 const RegisterPage = () => {
+  let { navigate, register, handleSubmit, errors, registerForm } = useAuth();
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
@@ -13,17 +17,21 @@ const RegisterPage = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(registerForm)} className="space-y-5">
           {/* Name */}
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Name
             </label>
             <input
+              {...register("name", {
+                required: "name is required",
+              })}
               type="text"
               placeholder="Enter your name"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
             />
+            {errors.name && <p className="text-red">{errors.name.message}</p>}
           </div>
 
           {/* Email */}
@@ -32,10 +40,14 @@ const RegisterPage = () => {
               Email
             </label>
             <input
+              {...register("email", {
+                required: "email is required",
+              })}
               type="email"
               placeholder="Enter your email"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
             />
+            {errors.email && <p className="text-red">{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -44,10 +56,20 @@ const RegisterPage = () => {
               Password
             </label>
             <input
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Minimum 8 characters are required",
+                },
+              })}
               type="password"
               placeholder="Create a password"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
             />
+            {errors.password && (
+              <p className="text-red">{errors.password.message}</p>
+            )}
           </div>
 
           {/* Register Button */}
