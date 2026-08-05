@@ -1,7 +1,6 @@
 import React from "react";
 import { useAuth } from "../../hooks/useAuthHook";
 
-
 const LoginPage = () => {
   let { navigate, register, handleSubmit, errors, loginForm } = useAuth();
 
