@@ -5,7 +5,7 @@ export const loginUserApi =  async (credentials) => {
 
         let res = await api.post("/auth/login", credentials);
         console.log("response fro login api", res);
-        
+        return res.data;
     } catch (error) {
         console.log("error in login api", error)
         
