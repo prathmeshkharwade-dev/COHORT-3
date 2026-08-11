@@ -1,6 +1,21 @@
 "use strict";
+// // - Type Inference and Annotation
+// let a: string = "hello";
+// a = "pol";
 Object.defineProperty(exports, "__esModule", { value: true });
-let a = 89;
-a = "pol";
-console.log(a);
+// a = "bye";
+// console.log(a);
+// // primitive data types
+// // string,
+// let val: string = "Shubham";
+// // boolean,
+// let val2: boolean = true;
+// // number,
+// let b: number = 90;
+// // undefined,
+// let h: undefined = undefined;
+// // bigint,
+// let g: bigint = 79697678n;
+// // symbol
+// let y: symbol = Symbol("hello");
 //# sourceMappingURL=index.js.map
