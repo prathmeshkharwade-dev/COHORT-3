@@ -1,19 +1,15 @@
-import Imagekit from "imagekit"
+import ImageKit, { toFile } from "@imagekit/nodejs"
+import dotenv from "dotenv"
+dotenv.config()
 
-
-const storageInstance = new Imagekit({
-    urlEndpoint:process.env.IMGK_URL,
-    publicKey:process.env.IMGK_PUBLIC_KEY,
-    privateKey:process.env.IMGK_PRIVATE_KEY
+const storageInstance = new ImageKit({
+    privateKey: process.env.IMGK_PRIVATE_KEY,
 })
 
-
-
-export const sendFiles = async (file,fileName)=> {
-    const obj = {
-        file,
+export const sendFiles = async (file, fileName) => {
+    return await storageInstance.files.upload({
+        file: await toFile(file, fileName),
         fileName,
-        folder:'cohort-3'
-    }
-    return await storageInstance.upload(obj)
+        folder: 'cohort-3'
+    })
 }
