@@ -1,5 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import userModel from "../models/user.model.js";
 
 const app = express();
 
@@ -11,13 +12,17 @@ app.get("/api", (req, res) => {
   });
 });
 
-app.post("/api/auth/register", (req, res) => {
+
+app.post("/api/auth/register", async (req, res) => {
   const { email, name, password } = req.body;
+
+  const user = await userModel.create({
+    email, name, password
+  })
 
   const token = jwt.sign(
     {
-      email,
-      name,
+      id: user._id
     },
     "daa7f6a48a4036a54ead56dddea444bddf82e5e41675794892c778188c26f7a9",
   )
@@ -25,11 +30,23 @@ app.post("/api/auth/register", (req, res) => {
   res.status(201).json({
     message:"User Create Successfully",
     data: {
-        user: { email, name
+        user: {
+          email,
+          name,
+          id:user._id
         },
         token
     }
   })
 });
+
+
+app.get("/api/auth/me", async (req , res)=> {
+  const authHeader = req.headers.authorization;
+
+  console.log(authHeader);
+}
+  )
+
 
 export default app;
