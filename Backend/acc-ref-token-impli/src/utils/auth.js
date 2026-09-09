@@ -8,3 +8,19 @@ export const generateTokens = ({ userId }) => {
 
     return { accessToken, refreshToken }
 }
+
+
+export function verifyAcessToken(token) {
+
+    const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET)
+
+    return decoded
+}
+
+
+export function verifyRefreshToken(token) {
+
+    const decoded = jwt.verify(token, config.REFRESH_TOKEN_SECRET)
+
+    return decoded
+}

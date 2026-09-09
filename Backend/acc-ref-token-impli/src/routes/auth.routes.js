@@ -1,7 +1,7 @@
 import { Router } from "express";
 import userModel from "../model/user.model.js";
 import bcrypt from "bcryptjs";
-import { generateTokens } from "../utils/Auth.js";
+import { generateTokens, verifyAcessToken, verifyRefreshToken } from "../utils/Auth.js";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
     const isUserExists = await userModel.findOne({ email })
 
     if (isUserExists) {
-        return req.statusCode(400).json({
+        return res.status(400).json({
             Message: "User already exist",
             errors: {
                 field: "email",
@@ -34,7 +34,11 @@ router.post("/register", async (req, res) => {
 
     const { accessToken , refreshToken } = generateTokens({ userId: user._id})
 
-    res.cookie("accessToken", refreshToken, {
+
+    user.refreshToken = refreshToken
+    await user.save()
+
+    res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
     }) 
 
@@ -50,6 +54,93 @@ router.post("/register", async (req, res) => {
     
     })
 
+})
+
+
+/**
+ * @GET /api/auth/me
+ */
+
+ router.get("/me", async (req, res) => {
+
+    const accessToken = req.headers.authorization?.split(" ") [1]
+
+    try {
+
+        const decoded = verifyAcessToken(accessToken)
+
+        const user = await userModel.findById(decoded.id)
+
+        res.status(200).json({
+            message: "user fetched successfully",
+            data: {
+                user: {
+                    name: user.name,
+                    email: user.email
+                }
+            }
+        })
+        
+    } catch (err) {
+
+        console.error(err) 
+       return res.status(401).json({
+        message:"Unauthorized, Invalid or expried access token",
+       })
+
+    }
+
+ })
+
+
+ /**
+  * @POST /api/auth/refresh
+  */
+
+router.post("/refresh", async (req, res) => {
+
+    const refreshToken = req.cookies.refreshToken
+
+    if (!refreshToken) {
+        return res.status(401).json({
+            message: "Unauthorized, refresh token not found",
+        })
+    }
+
+    try {
+
+        const decoded = await verifyRefreshToken(refreshToken)
+
+        const user = await userModel.findById(decoded.id)
+
+        if (refreshToken !== refreshToken) {
+
+            user.refreshToken = null
+            await user.save()
+
+            return res.status(401).json({
+                message: "Unauthorized, refresh token mismatch",
+            })
+        }
+
+        const { accessToken, refreshToken: newRefreshToken } = generateTokens({ userId: user._id })
+        res.cookie("refreshToken", newRefreshToken, {
+            httpOnly: true,
+        })
+
+        user.refreshToken = newRefreshToken
+        await user.save()
+
+        res.status(200).json({
+            message: "Access token refreshed successfully",
+            accessToken
+        })
+        
+    } catch (err) {
+        return res.status(401).json({
+            message: "Unauthorized, Invalid or expired refresh token",
+        })
+    }
 })
 
 export default router;
