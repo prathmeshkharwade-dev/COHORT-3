@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userModel from "../model/user.model.js";
 import bcrypt from "bcryptjs";
+import { generateTokens } from "../utils/Auth.js";
 
 const router = Router();
 
@@ -31,6 +32,23 @@ router.post("/register", async (req, res) => {
         passwordHash: await bcrypt.hash(password, 12)
     })
 
+    const { accessToken , refreshToken } = generateTokens({ userId: user._id})
+
+    res.cookie("accessToken", refreshToken, {
+        httpOnly: true,
+    }) 
+
+    res.status(201).json({
+        message: "user registered successfully",
+        data: {
+            user: {
+                name: user.name,
+                email: user.email
+            }
+        },
+        accessToken
+    
+    })
 
 })
 
