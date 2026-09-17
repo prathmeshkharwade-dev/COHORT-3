@@ -9,6 +9,11 @@ app.use(express.json())
 
 app.use("/api/url", urlRoutes)
 
+
+/**
+ * http://localhost:3000/:code => redirect to original url
+ */
+
 app.get("/:code", async function (req, res) {
 
     const { code } = req.params
