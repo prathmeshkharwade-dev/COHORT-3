@@ -12,12 +12,14 @@ const dummyUrls = [
   {
     _id:"2",
     originalUrl: "https://www.amazon.com/Ultimate-Controller-Joysticks-Remappable-Gaming-Console/dp/B0D739FJLG/ref=sr_1_24?_encoding=UTF8&sr=8-24",
-    shortCode: "SDFDD"
+    shortCode: "SDFDD",
+    Clicks:5
   },
   {
     _id:"3",
     originalUrl: "https://www.amazon.com/Ultimate-Controller-Joysticks-Remappable-Gaming-Console/dp/B0D739FJLG/ref=sr_1_24?_encoding=UTF8&sr=8-24",
-    shortCode: "SDFDD"
+    shortCode: "SDFDD",
+    Clicks:4
   }
 ]
 
@@ -33,11 +35,19 @@ function App() {
     <main className='p-10 flex flex-col gap-4'>
       <div className='w-full max-w-4xl p-2 '></div>
       <div className='w-full max-w-4xl p-2 '></div>
-      <div className='w-full max-w-4xl p-2 '></div>
+      <div className='w-full max-w-4xl p-2  flex flex-col gap-2'></div>
       {
-        urls.map(url=>{
+        urls.map(url =>{
           return (
+            <div className='border border- bg-neutral-200 p-2 flex gap-4 justify-evenly' >
+              <p>{url.shortCode}</p>
+              <p className='truncate'>{url.originalUrl}</p>
+              <div className='flex gap-2'>
+                <button className='p-2 rounded bg-amber-600 text-white cursor-pointer'>COPY</button>
+                <button className='p-2 rounded bg-amber-600 text-white cursor-pointer'>DELETE</button>
+              </div>
 
+            </div>
           )
         })
       }
