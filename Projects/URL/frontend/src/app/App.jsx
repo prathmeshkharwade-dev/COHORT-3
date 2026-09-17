@@ -1,5 +1,14 @@
 import { useState } from 'react'
+import axios from 'axios'
 import './App.css'
+
+
+async function fetchUrls(){
+   const response = await axios.get("http://localhost:3000/api/uri") 
+   console.log(response)
+}
+
+fetchUrls();
 
 
 const dummyUrls = [
