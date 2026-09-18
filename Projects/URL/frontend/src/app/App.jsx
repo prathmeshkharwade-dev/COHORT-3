@@ -1,14 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css'
 
 
-async function fetchUrls(){
-   const response = await axios.get("http://localhost:3000/api/uri") 
-   console.log(response)
-}
 
-fetchUrls();
 
 
 const dummyUrls = [
@@ -36,9 +31,27 @@ const dummyUrls = [
 
 function App() {
 
-  const [ urls, SetUrls ] = useState(dummyUrls)
-  const [ inputValue, SetInputValue ] = useState("")
-  const [ currentUrl, SetCurrentUrl ] = useState(null)
+  const [ urls, setUrls ] = useState(dummyUrls)
+  const [ inputValue, setInputValue ] = useState("")
+  const [ currentUrl, setCurrentUrl ] = useState(null)
+
+
+  async function fetchUrls(){
+
+   const response = await axios.get("http://localhost:5173/api/url") 
+
+   const responseData = response.data
+
+   setUrls(responseData.data.urls)
+}
+
+async function createShortUrl(){
+  const response = await axios.post("http://localhost:5173/api/url")
+}
+
+useEffect(() => {
+  fetchUrls()
+}, [])
 
   return (
     <main className='p-10 flex flex-col gap-4'>
@@ -48,9 +61,10 @@ function App() {
       {
         urls.map(url =>{
           return (
-            <div className='border border- bg-neutral-200 p-2 flex gap-4 justify-evenly' >
-              <p>{url.shortCode}</p>
+            <div className='border border- bg-neutral-200 p-2 flex gap-4 justify-evenly items-center' >
+              <a href={`http://localhost:3000/${url.shortCode}`} target='_blank' >{url.shortCode}</a>
               <p className='truncate'>{url.originalUrl}</p>
+              <p>{url.clicks}</p>
               <div className='flex gap-2'>
                 <button className='p-2 rounded bg-amber-600 text-white cursor-pointer'>COPY</button>
                 <button className='p-2 rounded bg-amber-600 text-white cursor-pointer'>DELETE</button>
