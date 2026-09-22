@@ -11,4 +11,4 @@ app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
 
-export default app
+export default app  
