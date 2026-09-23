@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body,validationResult  } from "express-validator";
 
 export const createProductValidator = [
   body("title")
@@ -12,7 +12,7 @@ export const createProductValidator = [
     .isLength({ min: 2, max: 100 })
     .withMessage("Title length must be between 2 to 100 characters")
     .bail()
-    .isAlpha("en-US", { ignore: " " })
+    .isAlpha("en-US", { ignore: " -" })
     .withMessage("Title can only english samll case nd upper case character"),
   body("description")
     .exists()
@@ -24,11 +24,32 @@ export const createProductValidator = [
     .trim()
     .isLength({ min: 20, max: 500 })
     .withMessage("Description length must be between 20 to 500 characters"),
-    body("price.amount")
+  body("price.amount")
     .exists().withMessage("price amount is required").bail()
-    .isFloat({ min: 0 }).withMessage('Price amount must be a floating number and must be greater then zero'),
-    body("price.currency")
-    .exists().withMessage("Currency is required")
+    .isFloat({ min: 0 }).withMessage('Price amount must be a floating number and must be greater then0'),
+  body("price.currency")
+    .exists().withMessage("Currency is required").bail()
     .isString().withMessage("Currency must be a string value")
-    .isIn([ 'INR', "USD" ]).withMessage("Currency either be INR or USD")
+    .isIn(['INR', "USD"]).withMessage("Currency either be INR or USD"),
+  body("sizes")
+    .exists().withMessage("size must be present in every entry of size array ").bail()
+    .isString().withMessage("Size must be a string value").bail()
+    .trim()
+    .isIn([ "XS", "S", "M", "XL", "XXL" ]).withMessage("size can be one of these XS, S, M ,L ,XL, XXL. "),
+  body("sizes.*.stock")
+    .exists().withMessage("stock must be present in every entry of the sizes arrary").bail()
+    .isInt({ min: 0 }).withMessage("Stock must be a integer value"),
+  (req, res, next) => {
+    const error = validationResult(req)
+
+    if(!Error.isEmpty()){
+      return res.status(400).json({
+        message: "invalidate Request",
+        errors: error.array()
+      })
+    }
+
+    next()
+  }
 ];
+
